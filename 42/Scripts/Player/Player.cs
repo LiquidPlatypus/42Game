@@ -7,6 +7,7 @@ namespace Empty.Scripts.Player
 	{
 		[Export] public int Speed { get; set; } = 14;
 		[Export] public int FallAcceleration {get; set;} = 75;
+		[Export] public int JumpImpulse {get; set;} = 20;
 
 		private Vector3 _targetVelocity = Vector3.Zero;
 
@@ -22,6 +23,8 @@ namespace Empty.Scripts.Player
 				direction.Z -= 1.0f;
 			if (Input.IsActionPressed("move_right"))
 				direction.Z += 1.0f;
+			if (Input.IsActionPressed("jump"))
+
 
 			if (direction != Vector3.Zero)
 			{
@@ -34,6 +37,9 @@ namespace Empty.Scripts.Player
 
 			if (!IsOnFloor())
 				_targetVelocity.Y -= FallAcceleration * (float)delta;
+
+			if (IsOnFloor() && Input.IsActionPressed("jump"))
+				_targetVelocity.Y = JumpImpulse;
 
 			Velocity = _targetVelocity;
 			MoveAndSlide();
