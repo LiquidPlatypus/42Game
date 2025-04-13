@@ -24,13 +24,11 @@ namespace Empty.Scripts.Player
 			if (Input.IsActionPressed("move_right"))
 				direction.Z += 1.0f;
 			if (Input.IsActionPressed("jump"))
-
-
-			if (direction != Vector3.Zero)
-			{
-				direction = direction.Normalized();
-				GetNode<Node3D>("Pivot").Basis = Basis.LookingAt(direction);
-			}
+				if (direction != Vector3.Zero)
+				{
+					direction = direction.Normalized();
+					GetNode<Node3D>("Pivot").Basis = Basis.LookingAt(direction);
+				}
 
 			_targetVelocity.X = direction.X * Speed;
 			_targetVelocity.Z = direction.Z * Speed;

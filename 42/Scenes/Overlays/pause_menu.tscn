@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://w514tmoj41ar"]
+
+[sub_resource type="FontFile" id="FontFile_nto00"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="Theme" id="Theme_nto00"]
+default_font = SubResource("FontFile_nto00")
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_nto00")
+
+[node name="Buttons" type="CanvasGroup" parent="."]
+
+[node name="ResumeBtn" type="Button" parent="Buttons"]
+offset_left = 541.0
+offset_top = 312.0
+offset_right = 611.0
+offset_bottom = 343.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Resume"
+metadata/_edit_use_anchors_ = true
