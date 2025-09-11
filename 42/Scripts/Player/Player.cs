@@ -8,8 +8,46 @@ namespace Empty.Scripts.Player
 		[Export] public int Speed { get; set; } = 14;
 		[Export] public int FallAcceleration {get; set;} = 75;
 		[Export] public int JumpImpulse {get; set;} = 20;
+		[Export] public float MouseSensitivity = 0.2f;
 
 		private Vector3 _targetVelocity = Vector3.Zero;
+
+		private Node3D _head;
+		private Camera3D _cameraFP;
+		private Camera3D _cameraTP;
+		private bool _isThirdPerson = false;
+
+		private float _pitch = 0.0f;
+
+		public override void _Ready()
+		{
+			Input.MouseMode = Input.MouseModeEnum.Captured;
+			_head = GetNode<Node3D>("Head");
+			_cameraFP = GetNode<Camera3D>("Head/CameraFP");
+			_cameraTP = GetNode<Camera3D>("Head/CameraTP");
+
+			_cameraFP.Current = true;
+			_cameraTP.Current = false;
+		}
+
+		public override void _UnhandledInput(InputEvent @event)
+		{
+			if (@event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo)
+				if (keyEvent.Keycode == Key.F5)
+					ToggleCamera();
+			if (@event is InputEventMouseMotion mouseMotion)
+			{
+				_head.RotateX(mouseMotion.Relative.Y * MouseSensitivity);
+				_head.RotateY(-mouseMotion.Relative.X * MouseSensitivity);
+				GD.Print("sa bouge wtf");
+			}
+		}
+		private void ToggleCamera()
+		{
+			_isThirdPerson = !_isThirdPerson;
+			_cameraFP.Current = !_isThirdPerson;
+			_cameraTP.Current = _isThirdPerson;
+		}
 
 		public override void _PhysicsProcess(double delta)
 		{

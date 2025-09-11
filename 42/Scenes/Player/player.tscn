@@ -1,8 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://chtnq5vvbri2e"]
+[gd_scene load_steps=5 format=3 uid="uid://chtnq5vvbri2e"]
 
 [ext_resource type="Script" uid="uid://bwlexxlwpswid" path="res://Scripts/Player/Player.cs" id="1_uvnfx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ialvd"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_uvnfx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a3d8c"]
 
 [node name="Player" type="CharacterBody3D"]
 collision_mask = 6
@@ -12,7 +16,17 @@ script = ExtResource("1_uvnfx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04795, 0)
 shape = SubResource("CapsuleShape3D_ialvd")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.85374, 0)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerCollisionShape"]
+mesh = SubResource("CapsuleMesh_uvnfx")
+surface_material_override/0 = SubResource("ShaderMaterial_a3d8c")
 
 [node name="Pivot" type="Node3D" parent="."]
+
+[node name="Head" type="Node3D" parent="."]
+
+[node name="CameraFP" type="Camera3D" parent="Head"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.85374, 0)
+
+[node name="CameraTP" type="Camera3D" parent="Head"]
+transform = Transform3D(0.0660475, 0, -0.997817, 0, 1, 0, 0.997817, 0, 0.0660475, -2.25685, 1.90371, 0.793963)
+fov = 62.2264
