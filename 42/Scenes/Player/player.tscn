@@ -28,5 +28,5 @@ surface_material_override/0 = SubResource("ShaderMaterial_a3d8c")
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.85374, 0)
 
 [node name="CameraTP" type="Camera3D" parent="Head"]
-transform = Transform3D(0.0660475, 0, -0.997817, 0, 1, 0, 0.997817, 0, 0.0660475, -2.25685, 1.90371, 0.793963)
+transform = Transform3D(0.0653002, -0.150001, -0.986527, 0.00990721, 0.988686, -0.149674, 0.997817, -5.13348e-09, 0.0660475, -3.41927, 2.17027, -0.0968341)
 fov = 62.2264

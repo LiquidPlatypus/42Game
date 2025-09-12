@@ -8,16 +8,15 @@ namespace Empty.Scripts.Player
 		[Export] public int Speed { get; set; } = 14;
 		[Export] public int FallAcceleration {get; set;} = 75;
 		[Export] public int JumpImpulse {get; set;} = 20;
-		[Export] public float MouseSensitivity = 0.2f;
+		[Export] public float MouseSensitivity = 0.1f;
+		[Export] public float lookAngle = 90.0f;
 
 		private Vector3 _targetVelocity = Vector3.Zero;
-
+		private Vector2 _mouseDelta = new Vector2();
 		private Node3D _head;
 		private Camera3D _cameraFP;
 		private Camera3D _cameraTP;
 		private bool _isThirdPerson = false;
-
-		private float _pitch = 0.0f;
 
 		public override void _Ready()
 		{
@@ -30,17 +29,26 @@ namespace Empty.Scripts.Player
 			_cameraTP.Current = false;
 		}
 
+		public override void _Input(InputEvent @event)
+		{
+			if (@event is InputEventMouseMotion mouseMotion)
+				_mouseDelta = mouseMotion.Relative;
+		}
+		public override void _Process(double delta)
+		{
+			// _cameraFP.RotationDegrees -= new Vector3(Mathf.RadToDeg(_mouseDelta.Y), 0, 0) * MouseSensitivity * (float)delta;
+			// _cameraFP.RotationDegrees += new Vector3(Mathf.Clamp(_cameraFP.RotationDegrees.X, -lookAngle, lookAngle), _cameraFP.RotationDegrees.Y, _cameraFP.RotationDegrees.X);
+
+			RotationDegrees -= new Vector3(0, Mathf.RadToDeg(_mouseDelta.X), 0) * MouseSensitivity * (float)delta;
+			RotationDegrees -= new Vector3(0, 0, Mathf.RadToDeg(_mouseDelta.Y)) * MouseSensitivity * (float)delta;
+			_mouseDelta = new Vector2();
+		}
+
 		public override void _UnhandledInput(InputEvent @event)
 		{
 			if (@event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo)
 				if (keyEvent.Keycode == Key.F5)
 					ToggleCamera();
-			if (@event is InputEventMouseMotion mouseMotion)
-			{
-				_head.RotateX(mouseMotion.Relative.Y * MouseSensitivity);
-				_head.RotateY(-mouseMotion.Relative.X * MouseSensitivity);
-				GD.Print("sa bouge wtf");
-			}
 		}
 		private void ToggleCamera()
 		{
