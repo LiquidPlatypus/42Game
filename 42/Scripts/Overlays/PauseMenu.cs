@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace Empty.Scripts.PauseMenu
+namespace Empty.Scripts.Overlays
 {
 	public partial class PauseMenu : Control
 	{

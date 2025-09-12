@@ -5,6 +5,7 @@
     <RootNamespace>Empty</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="Scenes\Levels\" />
     <Folder Include="Scripts\Overlays\" />
   </ItemGroup>
 </Project>
