@@ -12,6 +12,15 @@
 collision_mask = 6
 script = ExtResource("1_uvnfx")
 
+[node name="Head" type="Node3D" parent="."]
+
+[node name="CameraFP" type="Camera3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85374, 0)
+
+[node name="CameraTP" type="Camera3D" parent="Head"]
+transform = Transform3D(0.999998, 0.00155608, 0.00152992, -0.00163673, 0.998528, 0.0542071, -0.00144332, -0.0542095, 0.998529, -0.0880001, 2.577, 2.912)
+fov = 62.2264
+
 [node name="PlayerCollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04795, 0)
 shape = SubResource("CapsuleShape3D_ialvd")
@@ -21,12 +30,3 @@ mesh = SubResource("CapsuleMesh_uvnfx")
 surface_material_override/0 = SubResource("ShaderMaterial_a3d8c")
 
 [node name="Pivot" type="Node3D" parent="."]
-
-[node name="Head" type="Node3D" parent="."]
-
-[node name="CameraFP" type="Camera3D" parent="Head"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.85374, 0)
-
-[node name="CameraTP" type="Camera3D" parent="Head"]
-transform = Transform3D(0.0653002, -0.150001, -0.986527, 0.00990721, 0.988686, -0.149674, 0.997817, -5.13348e-09, 0.0660475, -3.41927, 2.17027, -0.0968341)
-fov = 62.2264
