@@ -9,10 +9,11 @@ namespace Empty.Scripts.Player
 		[Export] public int FallAcceleration {get; set;} = 75;
 		[Export] public int JumpImpulse {get; set;} = 20;
 		[Export] public float MouseSensitivity = 0.1f;
-		[Export] public float lookAngle = 90.0f;
+		[Export] public float PitchLimit = 60.0f;
 
 		private Vector3 _targetVelocity = Vector3.Zero;
 		private Vector2 _mouseDelta = new Vector2();
+		private float _pitch = 0f;
 		private Node3D _head;
 		private Camera3D _cameraFP;
 		private Camera3D _cameraTP;
@@ -36,12 +37,12 @@ namespace Empty.Scripts.Player
 		}
 		public override void _Process(double delta)
 		{
-			// _cameraFP.RotationDegrees -= new Vector3(Mathf.RadToDeg(_mouseDelta.Y), 0, 0) * MouseSensitivity * (float)delta;
-			// _cameraFP.RotationDegrees += new Vector3(Mathf.Clamp(_cameraFP.RotationDegrees.X, -lookAngle, lookAngle), _cameraFP.RotationDegrees.Y, _cameraFP.RotationDegrees.X);
+			RotationDegrees -= new Vector3(0, _mouseDelta.X, 0) * MouseSensitivity;
 
-			RotationDegrees -= new Vector3(0, Mathf.RadToDeg(_mouseDelta.X), 0) * MouseSensitivity * (float)delta;
-			RotationDegrees -= new Vector3(0, 0, Mathf.RadToDeg(_mouseDelta.Y)) * MouseSensitivity * (float)delta;
-			_mouseDelta = new Vector2();
+			_pitch = Mathf.Clamp(_pitch - _mouseDelta.Y * MouseSensitivity, -PitchLimit, PitchLimit);
+			_head.RotationDegrees = new Vector3(_pitch, 0, 0);
+
+			_mouseDelta = Vector2.Zero;
 		}
 
 		public override void _UnhandledInput(InputEvent @event)
@@ -62,19 +63,33 @@ namespace Empty.Scripts.Player
 			var direction = Vector3.Zero;
 
 			if (Input.IsActionPressed("move_forward"))
-				direction.X += 1.0f;
-			if (Input.IsActionPressed("move_back"))
-				direction.X -= 1.0f;
-			if (Input.IsActionPressed("move_left"))
 				direction.Z -= 1.0f;
-			if (Input.IsActionPressed("move_right"))
+			if (Input.IsActionPressed("move_back"))
 				direction.Z += 1.0f;
+			if (Input.IsActionPressed("move_left"))
+				direction.X -= 1.0f;
+			if (Input.IsActionPressed("move_right"))
+				direction.X += 1.0f;
 			if (Input.IsActionPressed("jump"))
 				if (direction != Vector3.Zero)
 				{
 					direction = direction.Normalized();
 					GetNode<Node3D>("Pivot").Basis = Basis.LookingAt(direction);
 				}
+
+			if (direction != Vector3.Zero)
+			{
+				// Normaliser l’input
+				direction = direction.Normalized();
+
+				// Transformer par l’orientation du Head (ou caméra pivot)
+				var basis = GetNode<Node3D>("Head").GlobalTransform.Basis;
+				direction = (basis * direction).Normalized();
+
+				// Rester au sol (annuler Y)
+				direction.Y = 0;
+				direction = direction.Normalized();
+			}
 
 			_targetVelocity.X = direction.X * Speed;
 			_targetVelocity.Z = direction.Z * Speed;
