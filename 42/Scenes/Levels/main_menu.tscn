@@ -75,3 +75,4 @@ size_flags_vertical = 0
 text = "Quit"
 
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/PlayButton" to="Control" method="OnPlayButtonPressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/QuitButton" to="Control" method="OnQuitButtonPressed"]

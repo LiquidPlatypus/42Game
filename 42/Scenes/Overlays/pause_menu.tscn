@@ -1,15 +1,11 @@
-[gd_scene format=3 uid="uid://w514tmoj41ar"]
+[gd_scene load_steps=2 format=3 uid="uid://cx14tl3nbwubv"]
 
-[node name="PauseMenu" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[ext_resource type="Script" uid="uid://bvmqyqe1mgw0l" path="res://Scripts/Overlays/PauseMenu.cs" id="1_thrtp"]
+
+[node name="MenuPause" type="CanvasLayer"]
+script = ExtResource("1_thrtp")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -18,7 +14,6 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.121569)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -41,6 +36,13 @@ layout_mode = 2
 text = "Resume
 "
 
+[node name="ReturnMenuBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Return Home"
+
 [node name="QuitBtn" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Quit"
+
+[connection signal="pressed" from="VBoxContainer/ResumeBtn" to="." method="OnResumePressed"]
+[connection signal="pressed" from="VBoxContainer/ReturnMenuBtn" to="." method="OnReturnMenuPressed"]

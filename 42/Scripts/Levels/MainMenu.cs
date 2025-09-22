@@ -7,7 +7,11 @@ namespace Empty.Scripts.Levels
 	{
 		private void OnPlayButtonPressed()
 		{
-			GetTree().ChangeSceneToFile("res://Scenes/Levels/main.tscn");
+			GetTree().ChangeSceneToFile("res://Scenes/Levels/game.tscn");
+		}
+		private void OnQuitButtonPressed()
+		{
+			GetTree().Quit();
 		}
 	}
 }

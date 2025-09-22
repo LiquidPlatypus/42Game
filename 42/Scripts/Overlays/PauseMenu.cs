@@ -3,13 +3,24 @@ using System;
 
 namespace Empty.Scripts.Overlays
 {
-	public partial class PauseMenu : Control
+	public partial class PauseMenu : CanvasLayer
 	{
-		public override void _UnhandledInput(InputEvent @event)
+		public override void _Ready()
 		{
-			if (@event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo)
-				if (keyEvent.Keycode == Key.Escape)
-					GetTree().Quit();
+			ProcessMode = ProcessModeEnum.Always;
+			Hide();
+		}
+
+		private void OnResumePressed()
+		{
+			Hide();
+			GetTree().Paused = false;
+			Input.MouseMode = Input.MouseModeEnum.Captured;
+		}
+
+		private void OnReturnMenuPressed()
+		{
+			GetTree().ChangeSceneToFile("res://Scenes/Levels/main_menu.tscn");
 		}
 	}
 }

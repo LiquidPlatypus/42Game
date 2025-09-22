@@ -37,6 +37,8 @@ namespace Empty.Scripts.Player
 		}
 		public override void _Process(double delta)
 		{
+			if (_head == null)
+				return;
 			RotationDegrees -= new Vector3(0, _mouseDelta.X, 0) * MouseSensitivity;
 
 			_pitch = Mathf.Clamp(_pitch - _mouseDelta.Y * MouseSensitivity, -PitchLimit, PitchLimit);
@@ -48,8 +50,10 @@ namespace Empty.Scripts.Player
 		public override void _UnhandledInput(InputEvent @event)
 		{
 			if (@event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo)
+			{
 				if (keyEvent.Keycode == Key.F5)
 					ToggleCamera();
+			}
 		}
 		private void ToggleCamera()
 		{

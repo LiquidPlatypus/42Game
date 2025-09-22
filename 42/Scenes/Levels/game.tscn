@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b86na1e7jr1m0"]
+[gd_scene load_steps=6 format=3 uid="uid://b86na1e7jr1m0"]
 
-[ext_resource type="PackedScene" uid="uid://chtnq5vvbri2e" path="res://Scenes/Player/player.tscn" id="1_s0gyx"]
-[ext_resource type="PackedScene" uid="uid://w514tmoj41ar" path="res://Scenes/Overlays/pause_menu.tscn" id="2_yjsus"]
+[ext_resource type="Script" uid="uid://c71dgsmrrtes8" path="res://Scripts/Levels/Game.cs" id="1_b2ers"]
+[ext_resource type="PackedScene" uid="uid://chtnq5vvbri2e" path="res://Scenes/Player/player.tscn" id="1_ds3o4"]
+[ext_resource type="PackedScene" uid="uid://cx14tl3nbwubv" path="res://Scenes/Overlays/pause_menu.tscn" id="2_72uep"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ou4mq"]
 size = Vector3(60, 2, 60)
@@ -10,6 +11,7 @@ size = Vector3(60, 2, 60)
 size = Vector3(60, 2, 60)
 
 [node name="Main" type="Node"]
+script = ExtResource("1_b2ers")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 collision_layer = 2
@@ -27,6 +29,7 @@ mesh = SubResource("BoxMesh_urui2")
 transform = Transform3D(1, 0, 0, 0, -0.222791, 0.974866, 0, -0.974866, -0.222791, 0, 26.7213, 0)
 shadow_enabled = true
 
-[node name="Player" parent="." instance=ExtResource("1_s0gyx")]
+[node name="Player" parent="." instance=ExtResource("1_ds3o4")]
 
-[node name="Control" parent="." instance=ExtResource("2_yjsus")]
+[node name="MenuPause" parent="." instance=ExtResource("2_72uep")]
+visible = false
